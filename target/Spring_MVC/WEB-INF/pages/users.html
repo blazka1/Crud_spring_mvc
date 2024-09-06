@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <style>
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .delete-button, .edit-button {
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px;
+        }
+        .delete-button {
+            color: red;
+        }
+        .edit-button {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<h2 style="text-align:center;">List of Users</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <a th:href="@{/users/edit(id=${user.id})}" class="edit-button">Edit</a>
+            |
+            <a th:href="@{/users/delete(id=${user.id})}" class="delete-button">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<h3 style="text-align:center;">Add New User</h3>
+<form th:action="@{/users}" method="post" style="text-align:center;">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <br>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+    <br><br>
+    <button type="submit">Add User</button>
+</form>
+
+</body>
+</html>
